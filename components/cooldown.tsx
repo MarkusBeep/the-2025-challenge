@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 
-const Cooldown: React.FC = () => {
+const Cooldown: FC = () => {
   const calculateTimeLeft = () => {
     const now = new Date();
-    const targetDate = new Date(now.getFullYear(), 0, 31, 23, 59, 59); // 31 de enero
+    const targetDate = new Date(now.getFullYear(), 0, 30, 0, 0, 0); // 31 de enero
     const difference = targetDate.getTime() - now.getTime();
 
     if (difference > 0) {
@@ -20,9 +20,17 @@ const Cooldown: React.FC = () => {
     }
   };
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // Solo ejecuta el temporizador en el cliente
+    setIsClient(true);
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
@@ -30,8 +38,13 @@ const Cooldown: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
+  if (!isClient) {
+    // Evita renderizar el temporizador en el servidor
+    return null;
+  }
+
   return (
-    <h2 className="text-white text-8xl font-steelFish">
+    <h2 className="text-white text-7xl md:text-8xl font-steelFish px-4">
       {`${timeLeft.days.toString().padStart(2, "0")}D `}
       {`${timeLeft.hours.toString().padStart(2, "0")}H `}
       {`${timeLeft.minutes.toString().padStart(2, "0")}M `}

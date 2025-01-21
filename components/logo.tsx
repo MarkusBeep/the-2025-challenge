@@ -1,10 +1,16 @@
-import Image from 'next/image'
-import React from 'react'
+import Image from "next/image";
 
 const Logo = () => {
   return (
-    <Image src={'/images/logo.png'} width={200} height={200} alt='arrow'/>
-  )
-}
+    <Image
+      src={"/images/logo.png"}
+      width={200}
+      height={200}
+      alt="arrow"
+      className="w-auto h-auto"
+      priority
+    />
+  );
+};
 
-export default Logo
+export default Logo;

@@ -1,8 +1,8 @@
 import Cooldown from "@/components/cooldown";
-import Logo from "../components/logo";
+import Logo from "@/components/logo";
 import Footer from "@/components/footer";
 import Formquestion from "@/components/form-question";
-import Input from "@/components/form-full";
+import FormFull from "@/components/form-full";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       <Logo />
       <Cooldown />
       <Formquestion />
-      <Input />
+      <FormFull />
       <Footer />
     </div>
   );

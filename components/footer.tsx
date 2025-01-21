@@ -1,7 +1,6 @@
-import React from "react";
+import Image from "next/image";
 import { Facebook } from "lucide-react";
 import { Instagram } from "lucide-react";
-import Image from "next/image";
 
 const Footer = () => {
   return (
