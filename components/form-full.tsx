@@ -14,6 +14,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+
+interface IData {
+  name: string;
+  answer: string;
+  date: string;
+}
 
 const FormSchema = z.object({
   name: z.string().optional(),
@@ -21,6 +28,7 @@ const FormSchema = z.object({
 });
 
 const FormFull = () => {
+  const { toast } = useToast();
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -37,8 +45,8 @@ const FormFull = () => {
       data.name = "Anonymous";
     }
 
-    const submissionData = {
-      name: data.name,
+    const submissionData: IData = {
+      name: data.name || "Anonymous",
       answer: data.answer,
       date: new Date().toLocaleDateString("en-US"), // Formato MM/DD/YYYY
     };
@@ -57,18 +65,18 @@ const FormFull = () => {
         body: JSON.stringify(submissionData),
       });
 
-      console.log({ response });
-
-      if (response.ok) {
-        console.log("Data sent successfully to Google Sheets");
-        resetForm();
-      } else {
-        console.error("Failed to send data to Google Sheets");
+      if (!response.ok) {
+        console.log("Your response has been submitted successfully!");
+        toast({
+          title: "Success",
+          description: "Your response has been submitted successfully!",
+        });
       }
     } catch (error) {
       console.error("Error sending data to Google Sheets:", error);
     } finally {
       setIsSubmitting(false);
+      resetForm();
     }
   };
 
