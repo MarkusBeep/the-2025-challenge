@@ -57,6 +57,8 @@ const FormFull = () => {
         body: JSON.stringify(submissionData),
       });
 
+      console.log({ response });
+
       if (response.ok) {
         console.log("Data sent successfully to Google Sheets");
         resetForm();
