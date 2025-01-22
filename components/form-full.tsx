@@ -20,9 +20,7 @@ const FormSchema = z.object({
     .string()
     //.min(2, { message: "Name must be at least 2 characters." })
     .optional(),
-  answer: z
-    .string()
-    .min(2, { message: "Answer is requerid " }),
+  answer: z.string().min(2, { message: "Answer is requerid " }),
 });
 
 const FormFull = () => {
@@ -52,7 +50,7 @@ const FormFull = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        <div className="flex flex-col items-center md:flex-row gap-5 px-4">
+        <div className="flex flex-col justify-center items-center md:flex-row gap-5 px-4">
           <FormField
             control={form.control}
             name="name"
